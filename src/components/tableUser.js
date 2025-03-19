@@ -1,11 +1,20 @@
 import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { fetchAllUser } from "../services/UserService";
+import ModalAddNewUser from "./ModalAddNew";
 
 const TableUsers = (props) => {
 
     const [listUsers, setListUsers] = useState([]);
+    const [isShowModal, setIsShowModal] = useState(false);
 
+    const handleClose = ()=>{
+        setIsShowModal(false);
+    }
+
+    const handleUpdateTable = (user)=>{
+        setListUsers([user, ...listUsers]); 
+    }
     useEffect(() => {
 
         getUsers();
@@ -22,17 +31,16 @@ const TableUsers = (props) => {
     console.log(listUsers);
     return (
         <>    
-        
+        <div className='my-3 add-new'>
+          <span><h3>Users List:</h3></span>
+          <button className='btn btn-success' onClick={()=>setIsShowModal(true)}>Add New User</button>
+        </div>
     <Table striped bordered hover>
       <thead>
         <tr>
           <th>ID</th>
           <th>Name</th>
           <th>Email</th>
-          <th>Password</th>
-          <th>Age</th>
-          <th>Address</th>
-          <th>Gender</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -43,10 +51,6 @@ const TableUsers = (props) => {
                     <td>{item.id}</td>
                     <td>{item.name}</td>
                     <td>{item.email}</td>
-                    <td>{item.password}</td>
-                    <td>{item.age}</td>
-                    <td>{item.address}</td>
-                    <td>{item.gender}</td>
                     </tr>
             )
             
@@ -54,6 +58,11 @@ const TableUsers = (props) => {
         }
       </tbody>
     </Table>
+        <ModalAddNewUser 
+        show = {isShowModal}
+        handleClose = {()=>setIsShowModal(false)}
+        handleUpdateTable = {handleUpdateTable}
+    />
         </>
     );
 }

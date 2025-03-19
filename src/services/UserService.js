@@ -5,4 +5,8 @@ const fetchAllUser = ()=> {
         return axios.get('/users')
 }
 
-export {fetchAllUser};
+const postCreateUser = (data)=> {
+    return axios.post('/users', data)
+}
+
+export {fetchAllUser, postCreateUser};
