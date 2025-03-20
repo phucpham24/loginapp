@@ -32,10 +32,12 @@ function Header() {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
+          {(user && user.auth || window.location.pathname ==='/') &&
+          <>
           <Nav className="me-auto">
 
               <NavLink to="/" className="active nav-link">Home</NavLink>
-              <NavLink to="/users" className="active nav-link">Manage Users</NavLink>
+              {user && user.auth && <NavLink to="/users" className="active nav-link">Manage Users</NavLink>}
           </Nav>
             <Nav>
             {user && user.email && <span className='nav-link'> Welcome {user.email} </span>}  
@@ -46,6 +48,8 @@ function Header() {
                 }
             </NavDropdown>
           </Nav>
+          </>
+          }
         </Navbar.Collapse>
       </Container>
     </Navbar>
