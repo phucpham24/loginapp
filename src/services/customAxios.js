@@ -5,7 +5,7 @@ const instance = axios.create({
 });
 
 axios.interceptors.response.use(function(response) {
-  return response.data;
+  return response.data ? response.data : {statusCode: response.status, message: response.statusText};
 }, function(error) {
   if (error.response.status === 401) {
     console.log("Unauthorized");

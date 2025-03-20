@@ -13,4 +13,8 @@ const updateUser = (data)=> {
     return axios.put('/users', data)
 }
 
-export {fetchAllUser, postCreateUser, updateUser};
+const deleteUser = (id)=> {
+    return axios.delete(`/users/${id}`)
+}
+
+export {fetchAllUser, postCreateUser, updateUser, deleteUser};
