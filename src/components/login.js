@@ -13,19 +13,29 @@ const Login = () => {
   };
 
   const handleLogin = async ()=>{
-    console.log(username,password)
-    // if(!username || !password){
-    //     toast.error("missing Email/Password")
-    //     return;
-    // }
-    // console.log(username,password)
-    let res = await loginApi(username,password);
-    let accessToken = res.data.data.accessToken
-    if(res && accessToken){
-        localStorage.setItem("token", accessToken)
+    if(!username || !password){
+        toast.error("missing Email/Password")
+        return;
     }
+    // Check if the email has the correct format
+    const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    if (!gmailRegex.test(username)) {
+        toast.error("Email must be a Gmail address (@gmail.com)");
+        return;
+    }
+    try {
+        let res = await loginApi(username, password);
 
-    console.log(">>>>check login", accessToken);
+        if (res && res.data.data.access_token) {
+            localStorage.setItem("token", res.data.data.access_token);
+            toast.success("Login successful!");
+        } else {
+            toast.error("Invalid credentials or unexpected response from server.");
+        }
+    } catch (error) {
+        console.error("Login error:", error);
+        toast.error("Username or password is invalid");
+    }
   }
 
 return (
@@ -61,8 +71,8 @@ return (
                         if (!username || !password) {
                             toast.error("Please enter both username and password");
                         } else {
-                            console.log("Username:", username);
-                            console.log("Password:", password);
+                            // console.log("Username:", username);
+                            // console.log("Password:", password);
                             handleLogin();
                         }
                     }}

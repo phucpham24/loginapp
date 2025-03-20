@@ -25,7 +25,7 @@ function Header() {
           <Nav className="me-auto">
 
               <NavLink to="/" className="active nav-link">Home</NavLink>
-              <NavLink to="/users" className="active nav-link">Mange Users</NavLink>
+              <NavLink to="/users" className="active nav-link">Manage Users</NavLink>
           </Nav>
             <Nav>
             <NavDropdown title="Setting" id="basic-nav-dropdown">
