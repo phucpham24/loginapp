@@ -16,7 +16,7 @@ const ModalEditUser = (props) => {
     const handleEditUser = async() => {
         let token = localStorage.getItem("token");
             let res = await updateUser({ id: dataUserEdit.id,email: dataUserEdit.email, password: dataUserEdit.password, name, age, address, gender }, token)
-            console.log("check update data", res);
+            // console.log("check update data", res);
                     if(res){
                         handleClose();
                         setName("");
@@ -27,7 +27,7 @@ const ModalEditUser = (props) => {
                         setGender("");
                         // Refresh the user list after adding a new user
                         toast.success("User edited successfully!");
-                        handleEditUserFromModal({ id: res.data.data.id, name: res.data.data.name, email: res.data.data.email });
+                        handleEditUserFromModal({ id: res.data.id, name: res.data.name, email: res.data.email });
                     }else{
                         toast.error("Failed to edit user!");
                     }
@@ -46,7 +46,7 @@ const ModalEditUser = (props) => {
 
             
 
-    console.log("check data edit", dataUserEdit);
+    // console.log("check data edit", dataUserEdit.id);
 
     return (
         <Modal 

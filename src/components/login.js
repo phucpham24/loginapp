@@ -33,29 +33,29 @@ const Login = () => {
     if (!gmailRegex.test(username)) {
         toast.error("Email must be a Gmail address (@gmail.com)");
         return;
-    }
-    try {
+    } 
 
-        let res = await loginApi(username, password);
-
-        if (res && res.data.data.access_token) {
-            loginContext(username, res.data.data.access_token);
-            toast.success("Login successful!");
-            navigate("/")
-        } else {
-            toast.error("Invalid credentials or unexpected response from server.");
+    let res = await loginApi(username, password);
+    // console.log("check res",res.status)
+    // console.log("check res",res.data.access_token)
+    if (res && res.data.access_token) {
+        loginContext(username, res.data.access_token);
+        toast.success("Login successful!");
+        navigate("/")
+    } else {
+        if(res && +res.status === 400){
+            toast.error("Username/Passwords incorrect");
         }
-    } catch (error) {
-        console.error("Login error:", error);
-        toast.error("Username or password is invalid");
+        
     }
+
   }
 
     const navigate = useNavigate();
 return (
     <div className="login-container">
         <div className="login-box">
-            <h2>Log in tester@gmail.com</h2>
+            <h2>Log in tester1@gmail.com</h2>
             <form onSubmit={(e) => e.preventDefault()}>
                 <input
                     type="email"

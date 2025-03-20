@@ -10,11 +10,12 @@ const ModalConfirm = (props) => {
     const { show, handleClose,dataUserDelete, handleDeleteUserFromModal} = props;
 
     let token = localStorage.getItem("token")
-    // console.log("accesstoken",token)
+    console.log("dataUserDelete",dataUserDelete)
     const confirmDelete = async()=>{
         let res = await deleteUser(dataUserDelete.id, token);
-        // console.log("check res deleete", res)
-        if(res && +res.status == 200){
+        console.log("check res deleete", res)
+        console.log("check res deleete", res.statusCode)
+        if(res && +res.statusCode == 200){
             handleClose();
             toast.success("User deleted successfully!");
             handleDeleteUserFromModal(dataUserDelete);

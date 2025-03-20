@@ -42,7 +42,7 @@ const ModalAddNewUser = (props) => {
         
         let res = await postCreateUser(data);
         console.log("check new data", res);
-        if(res && res.data.data.id){
+        if(res && res.data.id){
             handleClose();
             setName("");
             setEmail("");
@@ -52,9 +52,15 @@ const ModalAddNewUser = (props) => {
             setGender("");
             // Refresh the user list after adding a new user
             toast.success("User added successfully!");
-            handleUpdateTable({ id: res.data.data.id, name: data.name, email: data.email });
+            console.log("check id", data)
+            handleUpdateTable({ id: data.id, name: data.name, email: data.email });
         }else{
-            toast.error("Failed to add user!");
+            if (res.status === 400){
+                toast.error("User Email already exist!");
+            }else{
+                toast.error(`statuscode: ${res.status}`);
+            }
+            
         }
     };
 
