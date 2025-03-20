@@ -1,12 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./login.scss"; // Import the CSS file
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import icons
 import { loginApi } from "../services/UserService";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [passwordVisible, setPasswordVisible] = useState(false);
+
+
+    useEffect(()=>{
+        let token = localStorage.getItem("token");
+        if (token){
+            navigate("/")
+        }
+    }, [])
 
     const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -24,11 +33,13 @@ const Login = () => {
         return;
     }
     try {
+
         let res = await loginApi(username, password);
 
         if (res && res.data.data.access_token) {
             localStorage.setItem("token", res.data.data.access_token);
             toast.success("Login successful!");
+            navigate("/")
         } else {
             toast.error("Invalid credentials or unexpected response from server.");
         }
@@ -38,6 +49,7 @@ const Login = () => {
     }
   }
 
+    const navigate = useNavigate();
 return (
     <div className="login-container">
         <div className="login-box">
