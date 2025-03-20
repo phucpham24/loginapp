@@ -9,12 +9,12 @@ import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 
 function Header() {
-  const {logout} = useContext(UserContext)
+  const {logout, user} = useContext(UserContext)
 
   const navigate = useNavigate();
 
   const handleLogout = ()=>{
-    localStorage.removeItem("token");
+    logout();
     navigate("/");
     toast.success("logout success!")
   }
@@ -38,13 +38,12 @@ function Header() {
               <NavLink to="/users" className="active nav-link">Manage Users</NavLink>
           </Nav>
             <Nav>
+            {user && user.email && <span className='nav-link'> Welcome {user.email} </span>}  
             <NavDropdown title="Setting" id="basic-nav-dropdown">
-
-                <NavLink to="/login" className="dropdown-item">Login</NavLink>
-
-              <NavDropdown.Item onClick={()=> handleLogout()}>
-              Logout
-              </NavDropdown.Item>
+                {user && user.auth ===true
+                  ?  <NavDropdown.Item onClick={()=> handleLogout()}>Logout </NavDropdown.Item>
+                :<NavLink to="/login" className="dropdown-item">Login</NavLink>
+                }
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

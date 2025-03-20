@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./login.scss"; // Import the CSS file
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import icons
 import { loginApi } from "../services/UserService";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [passwordVisible, setPasswordVisible] = useState(false);
 
+    const {loginContext} = useContext(UserContext)
 
     useEffect(()=>{
         let token = localStorage.getItem("token");
@@ -37,7 +39,7 @@ const Login = () => {
         let res = await loginApi(username, password);
 
         if (res && res.data.data.access_token) {
-            localStorage.setItem("token", res.data.data.access_token);
+            loginContext(username, res.data.data.access_token);
             toast.success("Login successful!");
             navigate("/")
         } else {
