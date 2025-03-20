@@ -1,50 +1,6 @@
 const Home = ()=>{
     return (
-    //     <>
-    //        <div style={{
-    //   display: "flex",
-    //   justifyContent: "center",
-    //   alignItems: "center",
-    //   height: "100vh",
-    //   background: "linear-gradient(to right, #3b82f6, #9333ea)",
-    //   fontFamily: "Arial, sans-serif"
-    // }}>
-    //   <div style={{
-    //     background: "white",
-    //     padding: "20px",
-    //     borderRadius: "10px",
-    //     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-    //     textAlign: "center"
-    //   }}>
-    //     <h2>Welcome Back</h2>
-    //     <form>
-    //       <input type="email" placeholder="Enter your email" required style={{
-    //         width: "100%",
-    //         padding: "10px",
-    //         margin: "10px 0",
-    //         border: "1px solid #ccc",
-    //         borderRadius: "5px"
-    //       }} />
-    //       <input type="password" placeholder="Enter your password" required style={{
-    //         width: "100%",
-    //         padding: "10px",
-    //         margin: "10px 0",
-    //         border: "1px solid #ccc",
-    //         borderRadius: "5px"
-    //       }} />
-    //       <button type="submit" style={{
-    //         width: "100%",
-    //         padding: "10px",
-    //         backgroundColor: "#3b82f6",
-    //         color: "white",
-    //         border: "none",
-    //         borderRadius: "5px",
-    //         cursor: "pointer"
-    //       }}>Login</button>
-    //     </form>
-    //     <p>Don't have an account? <a href="/">Sign up</a></p>
-    //   </div>
-    // </div></>
+    
 
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
       {/* Hero Section */}

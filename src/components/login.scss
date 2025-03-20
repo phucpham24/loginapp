@@ -1,0 +1,66 @@
+/* Centering the login container */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #3b82f6, #9333ea);
+}
+
+/* Styling the login box */
+.login-box {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+}
+
+/* Input field styling */
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Styling the password container */
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Styling the password input */
+.password-input {
+    padding-right: 40px;
+}
+
+/* Eye icon styling */
+.eye-icon {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    color: #666;
+    font-size: 18px;
+}
+
+/* Button styling */
+.login-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #2563eb;
+}
