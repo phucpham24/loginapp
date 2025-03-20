@@ -9,4 +9,8 @@ const postCreateUser = (data)=> {
     return axios.post('/users', data)
 }
 
-export {fetchAllUser, postCreateUser};
+const updateUser = (data)=> {
+    return axios.put('/users', data)
+}
+
+export {fetchAllUser, postCreateUser, updateUser};

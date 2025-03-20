@@ -3,7 +3,7 @@ import { Table } from "react-bootstrap";
 import { fetchAllUser } from "../services/UserService";
 import ModalAddNewUser from "./ModalAddNew";
 import ModalEditUser from "./ModalEditUser";
-
+import _ from 'lodash';
 const TableUsers = (props) => {
 
     const [listUsers, setListUsers] = useState([]);
@@ -39,6 +39,13 @@ const TableUsers = (props) => {
     const handleEditUser = (user)=>{
         setDataUserEdit(user);
         setIsShowModalEdit(true);
+    }
+
+    const handleEditUserFromModal = (user)=>{
+        let cloneListUser = _.cloneDeep(listUsers);
+        let index = listUsers.findIndex(item=>item.id === user.id);
+        cloneListUser[index].name = user.name;
+        setListUsers(cloneListUser);
     }
 
 
@@ -87,6 +94,7 @@ const TableUsers = (props) => {
                 show = {isShowModalEdit}
                 dataUserEdit = {dataUserEdit}
                 handleClose = {()=>setIsShowModalEdit(false)}
+                handleEditUserFromModal = {handleEditUserFromModal}
 
             />
         </>
