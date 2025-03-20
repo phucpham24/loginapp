@@ -3,6 +3,7 @@ import { Table } from "react-bootstrap";
 import { fetchAllUser } from "../services/UserService";
 import ModalAddNewUser from "./ModalAddNew";
 import ModalEditUser from "./ModalEditUser";
+import ModalConfirm from "./ModalConfirm";
 import _ from 'lodash';
 const TableUsers = (props) => {
 
@@ -10,13 +11,22 @@ const TableUsers = (props) => {
     const [isShowModal, setIsShowModal] = useState(false);
 
     const [isShowModalEdit, setIsShowModalEdit] = useState(false);
-
     const [dataUserEdit, setDataUserEdit] = useState({});
 
+    const [isShowModalConfirm, setIsShowModalConfirm] = useState(false);
+    const [dataUserDelete, setDataUserDelete] = useState({});
+
+    const handleDeleteUser = (user)=>{
+        // setDataUserEdit(user);
+        setIsShowModalConfirm(true);
+        setDataUserDelete(user);
+        console.log("check user delete", user);
+    }
 
     const handleClose = ()=>{
         setIsShowModal(false);
         setIsShowModalEdit(false);
+        setIsShowModalConfirm(false);
     }
 
     const handleUpdateTable = (user)=>{
@@ -74,7 +84,7 @@ const TableUsers = (props) => {
                     <td>
                         <button className='btn btn-primary mx-3' onClick={()=>handleEditUser(item)}
                         >Edit</button>
-                        <button className='btn btn-danger'
+                        <button className='btn btn-danger' onClick = {()=>handleDeleteUser(item)}
                         >Delete</button>
                     </td>
                     </tr>
@@ -96,6 +106,11 @@ const TableUsers = (props) => {
                 handleClose = {()=>setIsShowModalEdit(false)}
                 handleEditUserFromModal = {handleEditUserFromModal}
 
+            />
+            <ModalConfirm
+                show = {isShowModalConfirm}
+                dataUserDelete = {dataUserDelete}
+                handleClose = {handleClose}
             />
         </>
     );
