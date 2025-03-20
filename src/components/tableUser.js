@@ -58,6 +58,11 @@ const TableUsers = (props) => {
         setListUsers(cloneListUser);
     }
 
+    const handleDeleteUserFromModal = (user)=>{
+        let cloneListUser = _.cloneDeep(listUsers);
+        cloneListUser = cloneListUser.filter(item => item.id !== user.id)
+        setListUsers(cloneListUser);
+    }
 
     return (
         <>    
@@ -111,6 +116,7 @@ const TableUsers = (props) => {
                 show = {isShowModalConfirm}
                 dataUserDelete = {dataUserDelete}
                 handleClose = {handleClose}
+                handleDeleteUserFromModal= {handleDeleteUserFromModal}
             />
         </>
     );
