@@ -6,8 +6,8 @@ const Home = ()=>{
       {/* Hero Section */}
       <div className="text-center p-10">
         <h1 className="text-4xl font-bold text-gray-900 mb-4">Welcome to Our Website</h1>
-        <p className="text-lg text-gray-600">Experience the best services and features tailored for you.</p>
-        <button className="mt-6 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition">
+        <p className="text-lg text-red-600">Experience the best services and features tailored for you.</p>
+        <button className="mt-6 px-6 py-3 bg-blue-600 text-red font-semibold rounded-lg shadow-md hover:bg-blue-700 transition">
           Get Started
         </button>
       </div>
