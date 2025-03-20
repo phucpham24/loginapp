@@ -14,7 +14,8 @@ const ModalEditUser = (props) => {
     const [gender, setGender] = useState("OTHER");
 
     const handleEditUser = async() => {
-            let res = await updateUser({ id: dataUserEdit.id,email: dataUserEdit.email, password: dataUserEdit.password, name, age, address, gender })
+        let token = localStorage.getItem("token");
+            let res = await updateUser({ id: dataUserEdit.id,email: dataUserEdit.email, password: dataUserEdit.password, name, age, address, gender }, token)
             console.log("check update data", res);
                     if(res){
                         handleClose();

@@ -16,11 +16,12 @@ const TableUsers = (props) => {
     const [isShowModalConfirm, setIsShowModalConfirm] = useState(false);
     const [dataUserDelete, setDataUserDelete] = useState({});
 
+
+
     const handleDeleteUser = (user)=>{
         // setDataUserEdit(user);
         setIsShowModalConfirm(true);
         setDataUserDelete(user);
-        console.log("check user delete", user);
     }
 
     const handleClose = ()=>{
@@ -37,10 +38,11 @@ const TableUsers = (props) => {
         getUsers();
         
     }, [])
-
+    let token = localStorage.getItem("token");
+    // console.log("check token", token)
     const getUsers = async ()=>{
-        let res = await fetchAllUser();
-        console.log("check new res data", res);
+        let res = await fetchAllUser(token);
+        // console.log("check new res data", res);
         if(res && res.data){
             setListUsers(res.data.data);
         }
