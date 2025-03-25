@@ -55,7 +55,7 @@ const Login = () => {
 return (
     <div className="login-container">
         <div className="login-box">
-            <h2>Log in testerpa3@gmail.com</h2>
+            <h2>Log in</h2>
             <form onSubmit={(e) => e.preventDefault()}>
                 <input
                     type="email"
