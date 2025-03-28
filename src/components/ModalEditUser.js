@@ -11,12 +11,12 @@ const ModalEditUser = (props) => {
     const [password, setPassword] = useState("");
     const [age, setAge] = useState(0);
     const [address, setAddress] = useState("");
-    const [gender, setGender] = useState("OTHER");
-
+    const [gender, setGender] = useState("MALE");
+    const [roleId, setRoleId] = useState("1");
+    console.log(">>>check dataUserEdit", dataUserEdit)
     const handleEditUser = async() => {
         let token = localStorage.getItem("token");
-            let res = await updateUser({ id: dataUserEdit.id,email: dataUserEdit.email, password: dataUserEdit.password, name, age, address, gender }, token)
-            // console.log("check update data", res);
+            let res = await updateUser({ id: dataUserEdit.id,email: dataUserEdit.email, password: dataUserEdit.password, name, age, address, gender, roleId: roleId  }, token)
                     if(res){
                         handleClose();
                         setName("");
@@ -25,23 +25,25 @@ const ModalEditUser = (props) => {
                         setAge("");
                         setAddress("");
                         setGender("");
+                        setRoleId("");
                         // Refresh the user list after adding a new user
                         toast.success("User edited successfully!");
-                        handleEditUserFromModal({ id: res.data.id, name: res.data.name, email: res.data.email });
+                        handleEditUserFromModal({ id: res.data.id, name: res.data.name, email: res.data.email, roleId: res.data.role.name});
                     }else{
                         toast.error("Failed to edit user!");
                     }
     };
 
     useEffect(() => {
-        if(show){
-            setName(dataUserEdit.name);
-            setEmail(dataUserEdit.email);
-            setPassword(dataUserEdit.password);
-            setAge(dataUserEdit.age);
-            setAddress(dataUserEdit.address);
-            setGender(dataUserEdit.gender);
-        }
+    if (show && dataUserEdit) {
+        setName(dataUserEdit.name || "");
+        setEmail(dataUserEdit.email || "");
+        setPassword(dataUserEdit.password || "");
+        setAge(dataUserEdit.age || 0);
+        setAddress(dataUserEdit.address || "");
+        setGender(dataUserEdit.gender || "MALE");
+        setRoleId(dataUserEdit.role?.id?.toString() || "1");
+    }
     },[dataUserEdit]);
 
             
@@ -118,6 +120,17 @@ const ModalEditUser = (props) => {
                             <option value="MALE">Male</option>
                             <option value="FEMALE">Female</option>
                             <option value="OTHER">Other</option>
+                        </select>
+                    </div>
+                        <div className="mb-3">
+                        <label className="form-label">Role</label>
+                        <select
+                            className="form-select"
+                            value={roleId}
+                            onChange={(event) => setRoleId(event.target.value)}
+                        >
+                            <option value="1">USER</option>
+                            <option value="2">ADMIN</option>
                         </select>
                     </div>
                 </form>

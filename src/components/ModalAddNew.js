@@ -13,6 +13,7 @@ const ModalAddNewUser = (props) => {
     const [age, setAge] = useState(0);
     const [address, setAddress] = useState("");
     const [gender, setGender] = useState("OTHER");
+    const [roleId, setRoleId] = useState("1");
     const [errorMessage, setErrorMessage] = useState(""); // To store validation errors
 
     const handleSaveUser = async() => {
@@ -37,7 +38,8 @@ const ModalAddNewUser = (props) => {
             password,
             age,
             address,
-            gender
+            gender,
+            roleId,
         }
         
         let res = await postCreateUser(data);
@@ -50,10 +52,23 @@ const ModalAddNewUser = (props) => {
             setAge("");
             setAddress("");
             setGender("");
+            setRoleId("");
             // Refresh the user list after adding a new user
             toast.success("User added successfully!");
             console.log("check id", data)
-            handleUpdateTable({ id: data.id, name: data.name, email: data.email });
+            const roleNameMap = {
+                "1": "USER",
+                "2": "ADMIN"
+            };
+            handleUpdateTable({
+    id: res.data.id,
+    name: res.data.name,
+    email: res.data.email,
+    role: {
+        id: roleId,
+        name: roleNameMap[roleId]
+    }
+});
         }else{
             if (res.status === 400){
                 toast.error("User Email already exist!");
@@ -135,6 +150,17 @@ const ModalAddNewUser = (props) => {
                             <option value="MALE">Male</option>
                             <option value="FEMALE">Female</option>
                             <option value="OTHER">Other</option>
+                        </select>
+                    </div>
+                        <div className="mb-3">
+                        <label className="form-label">Role</label>
+                        <select
+                            className="form-select"
+                            value={roleId}
+                            onChange={(event) => setRoleId(event.target.value)}
+                        >
+                            <option value="1">USER</option>
+                            <option value="2">ADMIN</option>
                         </select>
                     </div>
                 </form>

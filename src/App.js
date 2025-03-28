@@ -14,7 +14,7 @@ function App() {
 
   useEffect(()=>{
     if(localStorage.getItem("token")){
-      loginContext(localStorage.getItem("email"), localStorage.getItem("token"))
+      loginContext(localStorage.getItem("email"), localStorage.getItem("token"), localStorage.getItem("role"))
     }
   }
 ,[])

@@ -5,6 +5,7 @@ import ModalAddNewUser from "./ModalAddNew";
 import ModalEditUser from "./ModalEditUser";
 import ModalConfirm from "./ModalConfirm";
 import _ from 'lodash';
+
 const TableUsers = (props) => {
 
     const [listUsers, setListUsers] = useState([]);
@@ -16,7 +17,13 @@ const TableUsers = (props) => {
     const [isShowModalConfirm, setIsShowModalConfirm] = useState(false);
     const [dataUserDelete, setDataUserDelete] = useState({});
 
+    const [currentRole, setCurrentRole] = useState(null);
 
+    useEffect(() => {
+        getUsers();
+        const role = localStorage.getItem("role");
+        setCurrentRole(role);
+    }, []);
 
     const handleDeleteUser = (user)=>{
         // setDataUserEdit(user);
@@ -57,6 +64,7 @@ const TableUsers = (props) => {
         let cloneListUser = _.cloneDeep(listUsers);
         let index = listUsers.findIndex(item=>item.id === user.id);
         cloneListUser[index].name = user.name;
+        cloneListUser[index].role = { ...cloneListUser[index].role, name: user.roleId };
         setListUsers(cloneListUser);
     }
 
@@ -70,7 +78,13 @@ const TableUsers = (props) => {
         <>    
         <div className='my-3 add-new'>
           <span><h3>Users List:</h3></span>
+          {currentRole === "ADMIN" && (
+          <>
           <button className='btn btn-success' onClick={()=>setIsShowModal(true)}>Add New User</button>
+          </>
+          )}
+
+          
         </div>
     <Table striped bordered hover>
       <thead>
@@ -78,6 +92,7 @@ const TableUsers = (props) => {
           <th>ID</th>
           <th>Name</th>
           <th>Email</th>
+          <th>Role</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -88,11 +103,18 @@ const TableUsers = (props) => {
                     <td>{item.id}</td>
                     <td>{item.name}</td>
                     <td>{item.email}</td>
+                    <td>{item.role.name}</td>
                     <td>
-                        <button className='btn btn-primary mx-3' onClick={()=>handleEditUser(item)}
-                        >Edit</button>
-                        <button className='btn btn-danger' onClick = {()=>handleDeleteUser(item)}
-                        >Delete</button>
+                        {currentRole === "ADMIN" && (
+          <>
+            <button className="btn btn-primary mx-3" onClick={() => handleEditUser(item)}>
+              Edit
+            </button>
+            <button className="btn btn-danger" onClick={() => handleDeleteUser(item)}>
+              Delete
+            </button>
+          </>
+        )}
                     </td>
                     </tr>
                     

@@ -38,7 +38,31 @@ const deleteUser = (id, accessToken) => {
 };
 
 const loginApi = (username, password)=>{
-    return axios.post('/login',{username, password})
+    return axios.post('/auth/login',{username, password},{ withCredentials: true })
 }
 
-export {fetchAllUser, postCreateUser, updateUser, deleteUser, loginApi};
+const refreshToken = (accessToken)=>{
+        return axios.get(`/auth/refresh`, {
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        }
+    },{ withCredentials: true });
+}
+
+const getAccount = (accessToken)=>{
+        return axios.get(`/auth/account`, {
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        }
+    },{ withCredentials: true });
+}
+
+const Logout = (accessToken)=>{
+        return axios.get(`/auth/logout`, {
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        }
+    },{ withCredentials: true });
+}
+
+export {fetchAllUser, postCreateUser, updateUser, deleteUser, loginApi, refreshToken, getAccount, Logout };

@@ -39,8 +39,10 @@ const Login = () => {
     // console.log("check res",res.status)
     // console.log("check res",res.data.access_token)
     if (res && res.data.access_token) {
-        loginContext(username, res.data.access_token);
+        loginContext(username, res.data.access_token, res.data.user.role.name);
         toast.success("Login successful!");
+        console.log(">>>> login", res.data);
+        console.log(">>>> login", res.data.user.role.name);
         navigate("/")
     } else {
         if(res && +res.status >= 400){
