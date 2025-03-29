@@ -7,9 +7,6 @@ import axios from "./customAxios";
 
 const fetchAllUser = (accessToken) => {
     return axios.get(`/users`, {
-        headers: {
-            Authorization: `Bearer ${accessToken}`
-        }
     });
 };
 
@@ -23,46 +20,33 @@ const postCreateUser = (data)=> {
 
 const updateUser = (data, accessToken) => {
     return axios.put(`/users`, data, {
-        headers: {
-            Authorization: `Bearer ${accessToken}`
-        }
     });
 };
 
 const deleteUser = (id, accessToken) => {
     return axios.delete(`/users/${id}`, {
-        headers: {
-            Authorization: `Bearer ${accessToken}`
-        }
     });
 };
 
 const loginApi = (username, password)=>{
-    return axios.post('/auth/login',{username, password},{ withCredentials: true })
+    return axios.post("/auth/login",{username, password})
 }
 
 const refreshToken = (accessToken)=>{
-        return axios.get(`/auth/refresh`, {
-        headers: {
-            Authorization: `Bearer ${accessToken}`
-        }
-    },{ withCredentials: true });
+        return axios.get("/auth/refresh", {
+    });
 }
 
 const getAccount = (accessToken)=>{
-        return axios.get(`/auth/account`, {
-        headers: {
-            Authorization: `Bearer ${accessToken}`
-        }
-    },{ withCredentials: true });
+        return axios.get("/auth/account", {
+    });
 }
 
 const Logout = (accessToken)=>{
-        return axios.get(`/auth/logout`, {
-        headers: {
-            Authorization: `Bearer ${accessToken}`
-        }
-    },{ withCredentials: true });
+        return axios.post("/auth/logout", 
+            {});
 }
+
+
 
 export {fetchAllUser, postCreateUser, updateUser, deleteUser, loginApi, refreshToken, getAccount, Logout };

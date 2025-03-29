@@ -7,16 +7,32 @@ import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
+import { Logout } from '../services/UserService';
 
 function Header() {
   const {logout, user} = useContext(UserContext)
 
   const navigate = useNavigate();
 
-  const handleLogout = ()=>{
-    logout();
+  const handleLogout = async()=>{
+
+    let res = await Logout(localStorage.getItem("token"));
+    if (res && res.statusCode === 200)
+    {
+      logout();
     navigate("/");
     toast.success("logout success!")
+    console.log("document.cookie (non-HttpOnly cookies):", document.cookie);
+    // Optional: log all cookies (note: will not show HttpOnly cookies)
+      console.log("document.cookie (non-HttpOnly cookies):", document.cookie);
+    }
+    else {
+    toast.error("Logout fail");
+                  return;
+    }
+      
+
+    
   }
   return (
     <Navbar expand="lg"  className="bg-body-tertiary">
@@ -40,7 +56,9 @@ function Header() {
               {user && user.auth && <NavLink to="/users" className="active nav-link">Manage Users</NavLink>}
           </Nav>
             <Nav>
-            {user && user.email && <span className='nav-link'> Welcome {user.email} </span>}  
+            {user && user.email && <span className='nav-link'> 
+               Welcome <strong>{user.email}</strong> <strong>{user.role}</strong>
+              </span>}  
             <NavDropdown title="Setting" id="basic-nav-dropdown">
                 {user && user.auth ===true
                   ?  <NavDropdown.Item onClick={()=> handleLogout()}>Logout </NavDropdown.Item>

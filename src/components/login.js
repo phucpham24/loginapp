@@ -36,8 +36,8 @@ const Login = () => {
     } 
 
     let res = await loginApi(username, password);
-    // console.log("check res",res.status)
-    // console.log("check res",res.data.access_token)
+    console.log("check res",res.status)
+    console.log("check res",res.data.access_token)
     if (res && res.data.access_token) {
         loginContext(username, res.data.access_token, res.data.user.role.name);
         toast.success("Login successful!");
@@ -57,7 +57,7 @@ const Login = () => {
 return (
     <div className="login-container">
         <div className="login-box">
-            <h2>Log in</h2>
+            <h2>Log in test@gmail.com</h2>
             <form onSubmit={(e) => e.preventDefault()}>
                 <input
                     type="email"
